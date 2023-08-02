@@ -9,12 +9,12 @@ const app = Express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/store", StoreRoute);
-
+const PORT = process.env.PORT||3005
 async function serverStart() {
 	try {
 		await connectDB();
-		app.listen(3005, () => {
-			console.log("server listening on port 3005");
+		app.listen(PORT, () => {
+			console.log(`server listening on port ${PORT}`);
 		});
 	} catch (error) {
 		console.log(error);
