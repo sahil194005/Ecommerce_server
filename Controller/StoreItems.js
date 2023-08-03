@@ -23,4 +23,21 @@ const AddToStore = async (req, res) => {
     }
 }
 
-module.exports = { StoreItems ,AddToStore};
+
+const GetSingleProduct = async (req, res) => {
+    try {
+        
+        let _id = req.params.id;
+       
+        const product =await  ProductSchema.findOne({_id:_id});
+     
+        res.send(product);
+
+    }
+    catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+}
+
+module.exports = { StoreItems ,AddToStore,GetSingleProduct};
