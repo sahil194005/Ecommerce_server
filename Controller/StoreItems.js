@@ -25,14 +25,10 @@ const AddToStore = async (req, res) => {
 
 
 const GetSingleProduct = async (req, res) => {
-    try {
-        
+    try { 
         let _id = req.params.id;
-       
         const product =await  ProductSchema.findOne({_id:_id});
-     
         res.send(product);
-
     }
     catch (error) {
         console.log(error);

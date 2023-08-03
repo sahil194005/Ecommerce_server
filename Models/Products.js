@@ -1,4 +1,4 @@
-const { Int32 } = require("bson");
+
 const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema({
 	img_id: {
