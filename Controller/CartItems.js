@@ -37,8 +37,8 @@ const AddToCart = async (req, res) => {
 const RemoveFromCart = async (req, res) => {
 	try {
 		const ProductId = req.params.ProductId;
-		let response = await CartItemsSchema.findByIdAndDelete(
-			ProductId
+		let response = await CartItemsSchema.findOneAndDelete(
+			{ProductId:ProductId}
 		);
 		
 		res.send(response);
