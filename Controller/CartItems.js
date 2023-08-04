@@ -40,8 +40,8 @@ const RemoveFromCart = async (req, res) => {
 		let response = await CartItemsSchema.findByIdAndDelete(
 			ProductId
 		);
-		console.log(response);
-		res.send("removed");
+		
+		res.send(response);
 	} catch (error) {
 		console.log(error);
 		res.send(error);
