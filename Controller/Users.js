@@ -31,14 +31,14 @@ const SignUp = async (req, res) => {
 		res.json({
 			msg: "Something went wrong",
 			success: false,
-			error: error,
+			 error: error,
 		});
 	}
 };
 
 const generateToken = (id, email) => {
 	let token = jwt.sign({ userId: id, userEmail: email }, process.env.JWT_SECRET);
-	console.log(token);
+
 	return token;
 };
 
