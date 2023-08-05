@@ -18,6 +18,9 @@ const CartItemsSchema = new mongoose.Schema({
     },
     ProductId: {
         type:  mongoose.Schema.Types.ObjectId,
+    },
+    userId: {
+        type:mongoose.Schema.Types.ObjectId
     }
 });
 

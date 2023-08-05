@@ -1,11 +1,11 @@
 const CartItemsSchema = require("../Models/CartItems");
 const getAllCartItems = async (req, res) => {
 	try {
-		const response = await CartItemsSchema.find({});
-		res.send(response);
+		 await CartItemsSchema.findO({userId:req.User_id});
+		res.status(201).json({msg:"got all cart items",success:true})
 	} catch (error) {
 		console.log(error);
-		re.send(error);
+		res.status(404).json({ msg: "cant get cart items", success: false });
 	}
 };
 
@@ -14,19 +14,18 @@ const AddToCart = async (req, res) => {
 	try {
 		const Product = await CartItemsSchema.findOne({
 			ProductId: obj.ProductId,
+			userId: req.User._id,
 		});
 
 		if (!Product) {
-			const response = await CartItemsSchema.create(obj);
-
-			res.send(response);
+			await CartItemsSchema.create({ ...obj, userId: req.User._id });
+			res.status(201).json({ msg: "added to cart", success: true });
 		} else {
-			const response =
-				await CartItemsSchema.findOneAndUpdate(
-					{ ProductId: obj.ProductId },
-					{ quantity: Product.quantity + obj.quantity }
-				);
-			res.send(response);
+			const response = await CartItemsSchema.findOneAndUpdate(
+				{ ProductId: obj.ProductId, userId: req.User._id },
+				{ quantity: Product.quantity + obj.quantity }
+			);
+			res.status(201).json({ msg: "added to cart", success: true });
 		}
 	} catch (error) {
 		console.log(error);
@@ -37,10 +36,8 @@ const AddToCart = async (req, res) => {
 const RemoveFromCart = async (req, res) => {
 	try {
 		const ProductId = req.params.ProductId;
-		let response = await CartItemsSchema.findOneAndDelete(
-			{ProductId:ProductId}
-		);
-		
+		let response = await CartItemsSchema.findOneAndDelete({ ProductId: ProductId });
+
 		res.send(response);
 	} catch (error) {
 		console.log(error);
