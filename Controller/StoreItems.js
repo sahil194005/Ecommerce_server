@@ -3,6 +3,7 @@ const ProductSchema = require("../Models/Products");
 const StoreItems = async (req, res) => {
 	try {
 		const products = await ProductSchema.find({});
+		
 		res.send(products);
 	} catch (error) {
 		console.log(error);

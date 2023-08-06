@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken");
 const UserSchema = require("../Models/Users");
 const AuthUser = async (req, res, next) => {
 	try {
-        const token = JSON.parse(req.header("Authorization"));
+        const token = req.header("Authorization");
        
-
+		
 		const { userId } = jwt.verify(token, process.env.JWT_SECRET);
 		const currUser = await UserSchema.findById(userId);
 		req.User = currUser;

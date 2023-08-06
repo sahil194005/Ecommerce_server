@@ -1,8 +1,9 @@
 const CartItemsSchema = require("../Models/CartItems");
 const getAllCartItems = async (req, res) => {
 	try {
-		 await CartItemsSchema.findO({userId:req.User_id});
-		res.status(201).json({msg:"got all cart items",success:true})
+		
+		let cartItems = await CartItemsSchema.find({ userId: req.User._id });
+		res.status(201).json({ msg: "got all cart items", success: true, data: cartItems });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ msg: "cant get cart items", success: false });
@@ -45,8 +46,22 @@ const RemoveFromCart = async (req, res) => {
 	}
 };
 
+const CartItemsNumber = async (req, res) => {
+	try {
+		let cartItems = await CartItemsSchema.find({ userId: req.User._id });
+		let count = 0;
+
+		cartItems.forEach((item) => {
+			count = count+item.quantity
+		})
+
+		res.status(201).json({ success: true, msg: "got total number of cart items", data: count });
+	} catch (error) {}
+};
+
 module.exports = {
 	getAllCartItems,
 	AddToCart,
 	RemoveFromCart,
+	CartItemsNumber,
 };
