@@ -9,10 +9,14 @@ const cors = require('cors');
 const app = Express();
  
 app.use(cors());
+
+
+
 app.use(bodyParser.json());
 app.use("/store", StoreRoute);
 app.use('/cart', CartRoute);
-app.use('/users',UserRoute)
+app.use('/users', UserRoute)
+
 
 const PORT = process.env.PORT||3005
 async function serverStart() {
